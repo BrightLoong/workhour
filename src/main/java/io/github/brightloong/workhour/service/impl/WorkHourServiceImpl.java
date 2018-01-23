@@ -139,7 +139,10 @@ public class WorkHourServiceImpl implements IWorkHourSerive{
                 exportTable.setDate(dateList.get(i));
                 exportTable.setWeek(weekList.get(i));
                 String key = workType.get(i);
-                if (timeTableMap.containsKey(key)) {
+                if (StringUtils.isBlank(key)) {
+                    exportTables.add(exportTable);
+                    continue;
+                } else if (timeTableMap.containsKey(key)) {
                     TimeTable timeTable = timeTableMap.get(key);
                     setWorkHourAndOffHour(timeTable, exportTable);
                     exportTable.setDinnerTime(sdf.format(DateUtils.doubleToDate(timeTable.getDinnerTime())));
