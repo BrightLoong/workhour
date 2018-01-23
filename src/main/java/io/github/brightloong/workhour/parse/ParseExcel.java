@@ -205,7 +205,11 @@ public class ParseExcel {
             List<String> workType = new ArrayList<String>();
             staffWorkTable.setDepartment(department);
             staffWorkTable.setJob(getAndCheckStringCellValue(getAndCheckCell(row, 2), ""));
-            staffWorkTable.setName(getAndCheckStringCellValue(getAndCheckCell(row, 1), ""));
+            String name = getAndCheckStringCellValue(getAndCheckCell(row, 1), "");
+            if (StringUtils.isBlank(name)) {
+				continue;
+			}
+            staffWorkTable.setName(name);
             staffWorkTable.setDateList(dateList);
             staffWorkTable.setWeekList(weekList);
             staffWorkTable.setWorkType(workType);

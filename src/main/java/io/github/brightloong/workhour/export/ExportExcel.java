@@ -36,8 +36,9 @@ public class ExportExcel {
      * 导出结果到模板.
      * @param config 配置信息
      * @param context 上下文
+     * @throws Exception 
      */
-    public static void exportExcel(Config config, Map<String, Object> context) {
+    public static void exportExcel(Config config, Map<String, Object> context) throws Exception {
         String templateFilePath =  io.github.brightloong.workhour.utils.IOUtils.getFilePath(INormalContants.TEMPLATE_PAHT);
         FileInputStream fis = null;
         FileOutputStream fos = null;
@@ -49,7 +50,9 @@ public class ExportExcel {
             fos = new FileOutputStream(tempFilePath);
             workbook.write(fos);
         } catch (Exception e) {
-            e.printStackTrace();
+            if (e instanceof WorkHourException) {
+				throw e;
+			}
         } finally {
             IOUtils.closeQuietly(fis);
             IOUtils.closeQuietly(fos);
